@@ -1,13 +1,10 @@
 import { lazy, useState, Suspense, useContext } from 'react';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route, useLocation, matchPath } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from './context/UserContext';
 import './App.css';
-import UpdateEmail from './layout/settings/UpdateEmail';
-import ResetPassword from './layout/settings/ResetPassword';
-import ErrorBoundary from './middleware/ErrorBoundary';
-import NoMatchingRoute from './components/InvalidRoute/NoMatchingRoute';
 
 const LandingPage = lazy(() => import('./layout/landingPage/LandingPage'));
 const Signup = lazy(() => import('./layout/signup/Signup'));
@@ -18,6 +15,10 @@ const Player = lazy(() => import('./components/audioPlayer/Player'));
 const UpdateProfile = lazy(() => import('./components/updateProfile/UpdateProfile'));
 const Settings = lazy(() => import('./layout/settings/Settings'));
 const Loader = lazy(() => import('./components/loader/Loader'));
+const UpdateEmail = lazy(() => import('./layout/settings/UpdateEmail'));
+const ResetPassword = lazy(() => import('./layout/settings/ResetPassword'));
+const ErrorBoundary = lazy(() => import('./middleware/ErrorBoundary'));
+const NoMatchingRoute = lazy(() => import('./components/InvalidRoute/NoMatchingRoute'));
 
 
 function AppContent({ isLightMode, setIsLightMode }) {
@@ -44,7 +45,7 @@ function AppContent({ isLightMode, setIsLightMode }) {
         <Route path='*' element={<NoMatchingRoute isLightMode={isLightMode} />} />
       </Routes>
 
-
+      {/* Player */}
       {shouldShowPlayer && <Player isLightMode={isLightMode} />}
     </>
   );
@@ -69,6 +70,10 @@ export default function App() {
       {loader && <Loader isLightMode={isLightMode} />}
 
 
+      {/* Vercel speed insights */}
+      <SpeedInsights />
+
+      {/* Toast  */}
       <ToastContainer
         position="top-right"
         autoClose={5000}

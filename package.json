@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@tailwindcss/vite": "^4.1.8",
+    "@vercel/speed-insights": "^1.2.0",
     "axios": "^1.9.0",
     "motion": "^12.16.0",
     "react": "^19.1.0",
