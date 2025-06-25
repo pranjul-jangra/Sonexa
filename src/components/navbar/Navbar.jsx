@@ -15,7 +15,6 @@ export default function Navbar({ isLightMode, setIsLightMode }) {
     const navigate = useNavigate();
     const { user, setUser, setProfileData, setToken, setLoader } = useContext(UserContext);
     const [showList, setShowList] = useState(false);
-    const [sessionChecked, setSessionChecked] = useState(false);
     let listTimeout;
 
     // Show and hide the list on hover event
@@ -30,47 +29,20 @@ export default function Navbar({ isLightMode, setIsLightMode }) {
         }, 300);
     };
 
+    // Fetch user
     const axiosIntance = axiosInterceptor();
-
-    // First, check if session exists (restore from refresh token)
     useEffect(() => {
-        const checkSession = async () => {
-            try {
-                if (user?._id) {
-                    setSessionChecked(true);
-                    return;
-                }
-                // Try to refresh token
-                const res = await axiosIntance.post('/api/admin/refresh', {}, { withCredentials: true });
-                
-                if (res.data?.newUser && res.data?.newToken) {
-                    setUser(res.data.newUser);
-                    setToken(res.data.newToken);
-                }
-            } catch (error) {
-                return;
-            } finally {
-                setSessionChecked(true);
-            }
-        };
-        checkSession();
-    }, []);
-
-    // Then, fetch user profile data (only after session is checked)
-    useEffect(() => {
-        if (!sessionChecked) return;
-        if (!user?._id || (user?.username && user?.email)) return;
-
+        if (user?.username && user?._id) return;
         async function fetchUser() {
             try {
-                const res = await axiosInstance.get(`/api/admin/user/${user._id}`);
+                const res = await axiosIntance.get(`/api/admin/user/${user?._id}`);
                 setProfileData(res.data?.user);
             } catch (error) {
-                console.error('Error fetching user profile:', error);
+                return;
             }
         }
         fetchUser();
-    }, [user, sessionChecked]);
+    }, [user]);
 
     // Logout function
     async function logout() {
