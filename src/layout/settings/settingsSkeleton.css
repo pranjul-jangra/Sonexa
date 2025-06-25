@@ -1,0 +1,21 @@
+.settings-light-skeleton {
+    background-color: #dbdcdd;
+    animation: skeleton-fade 1.5s ease infinite;
+}
+
+.settings-dark-skeleton {
+    background-color: #2b2b2c;
+    animation: skeleton-fade 1.5s ease infinite;
+}
+
+@keyframes skeleton-fade {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
