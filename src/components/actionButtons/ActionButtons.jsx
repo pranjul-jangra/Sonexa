@@ -338,7 +338,7 @@ export default function ActionButtons({ borderColor, activeState, isLightMode })
                                                     {song?.category && <p className="text-xs text-gray-400">{song?.category || ""}</p>}
                                                 </div>
                                                 <div className="text-sm text-gray-400">
-                                                    {Math.floor(song?.duration / 60)}:{(song?.duration % 60).toString().padStart(2, '0')}
+                                                    {Math.floor(song?.duration / 60)}:{Math.floor(song?.duration % 60).toString().padStart(2, '0')}
                                                 </div>
                                             </div>
                                         </div>

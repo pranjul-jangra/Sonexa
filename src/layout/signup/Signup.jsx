@@ -83,12 +83,13 @@ export default function Signup({ isLightMode }) {
     };
 
     // Submit form
+    const axiosIntance = axiosInterceptor();
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/admin/${form === 'Login' ? 'login' : 'register'}`, data, { withCredentials: true });
+            const res = await axiosIntance.post(`/api/admin/${form === 'Login' ? 'login' : 'register'}`, data, { withCredentials: true });
             setUser(res.data?.user || null);
             setToken(res.data?.accessToken || null);
             navigate('/home', { replace: true });
@@ -107,7 +108,6 @@ export default function Signup({ isLightMode }) {
     };
 
     // Forgot password
-    const axiosIntance = axiosInterceptor();
     const sendResetToken = async () => {
         if(!data.email.trim()) return toast.error("Email is required");
         try {

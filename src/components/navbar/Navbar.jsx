@@ -42,7 +42,7 @@ export default function Navbar({ isLightMode, setIsLightMode }) {
             }
         }
         fetchUser();
-    }, [user]);
+    }, []);
 
     // Logout function
     async function logout() {
